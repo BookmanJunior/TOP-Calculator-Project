@@ -4,17 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="app.js" defer></script>
     <title>Calculator</title>
   </head>
   <body>
     <div class="wrapper">
       <div id="calculatorDisplay" class="calculator-display">
-        1 + 2 + 3 / 5 * 3
+        <p class="result">12</p>
+        <p class="current-calculation">4 + 8</p>
       </div>
       <div class="function-buttons">
         <button id="clear" class="function-button clear">C</button>
+        <button id="plusMinusToggle" class="plus-minus-button">+/-</button>
+        <button id="percentageButton" class="percentage-button">%</button>
       </div>
-      <div class="operator-buttons">
+      <div id="numberButtons" class="number-buttons">
+        <button class="number-button">9</button>
+        <button class="number-button">8</button>
+        <button class="number-button">7</button>
+        <button class="number-button">6</button>
+        <button class="number-button">5</button>
+        <button class="number-button">4</button>
+        <button class="number-button">3</button>
+        <button class="number-button">2</button>
+        <button class="number-button">1</button>
+        <button class="number-button">0</button>
+        <button class="number-button">.</button>
+      </div>
+      <div id="operatorButtons" class="operator-buttons">
         <button id="operatorButton" class="operator-button">÷</button>
         <button id="operatorButton" class="operator-button">X</button>
         <button id="operatorButton" class="operator-button">-</button>
