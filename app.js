@@ -2,21 +2,23 @@ const display = document.getElementById("calculatorDisplay");
 const calcDisplay = document.getElementById("currentCalculation");
 const resultDisplay = document.getElementById("caclResult");
 const functionButtons = document.getElementById("functionButtons");
+const clearButton = document.getElementById("clear");
 const numberButtons = Array.from(
   document.getElementsByClassName("number-button")
 );
-const operatorButtons = Array.from(
-  document.getElementsByClassName("operator-button")
-);
+const operatorButtons = document.getElementById("operatorButtons");
+const equalButton = document.getElementById("equalButton");
 
 let num1 = 0;
 let num2 = 0;
+let operator;
 
-// numberButtons.addEventListener("click", displayNumber);
 numberButtons.forEach((button) =>
   button.addEventListener("click", displayNumber)
 );
-functionButtons.addEventListener("click", performFunction);
+clearButton.addEventListener("click", clearInput);
+operatorButtons.addEventListener("click", operatorOfChoice);
+equalButton.addEventListener("click", calculate);
 
 function add(num1, num2) {
   return num1 + num2;
@@ -34,22 +36,64 @@ function divide(num1, num2) {
   return num1 / num2;
 }
 
-function operate(operator, num1, num2) {
-  return operator(num1, num2);
+function operate(operation, num1, num2) {
+  return operation(num1, num2);
 }
 
 function displayNumber(e) {
-  num1 = parseInt(e.target.textContent);
-  if (calcDisplay.textContent === "0") {
-    calcDisplay.textContent = num1;
+  if (operator) {
+    num2 = parseInt(e.target.textContent);
+    calcDisplay.textContent = num2;
   } else {
-    number = document.createTextNode(num1);
-    calcDisplay.appendChild(number);
+    num1 = parseInt(e.target.textContent);
+    if (calcDisplay.textContent === "0") {
+      calcDisplay.textContent = num1;
+    } else {
+      number = document.createTextNode(num1);
+      calcDisplay.appendChild(number);
+      num1 = parseInt(
+        document.getElementById("currentCalculation").textContent
+      );
+      console.log(num1);
+    }
   }
 }
 
-function performFunction(e) {
-  if (e.target.id === "clear") {
-    calcDisplay.textContent = 0;
-  }
+function clearInput() {
+  num1 = 0;
+  num2 = 0;
+  operator = null;
+  calcDisplay.textContent = 0;
+  console.log(num1);
+  console.log(num2);
 }
+
+// Works
+const operators = {
+  "+": add,
+  "-": subtract,
+  X: multiply,
+  "÷": divide,
+};
+
+function operatorOfChoice(e) {
+  operator = e.target.textContent;
+}
+
+function calculate() {
+  console.log(num1);
+  console.log(num2);
+  let result = operate(operators[operator], num1, num2);
+  calcDisplay.textContent = result;
+}
+
+// Doesn't work
+// function operatorOfChoice(e) {
+//   operator = e.target.id;
+//   console.log(operator);
+// }
+
+// function calculate() {
+//   let result = operate(operator, num1, num2);
+//   calcDisplay.textContent = result;
+// }
