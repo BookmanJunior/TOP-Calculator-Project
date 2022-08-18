@@ -79,9 +79,12 @@ function operatorOfChoice(e) {
 }
 
 function calculate() {
-  let result = operate(operators[operator], num1, num2);
-  num1 = result;
-  calcDisplay.textContent = result;
+  if (!operator) {
+  } else {
+    let result = operate(operators[operator], num1, num2);
+    num1 = result;
+    calcDisplay.textContent = result;
+  }
 }
 
 // Doesn't work
