@@ -64,8 +64,6 @@ function clearInput() {
   num2 = 0;
   operator = null;
   calcDisplay.textContent = 0;
-  console.log(num1);
-  console.log(num2);
 }
 
 // Works
@@ -81,8 +79,6 @@ function operatorOfChoice(e) {
 }
 
 function calculate() {
-  console.log(num1);
-  console.log(num2);
   let result = operate(operators[operator], num1, num2);
   num1 = result;
   calcDisplay.textContent = result;
