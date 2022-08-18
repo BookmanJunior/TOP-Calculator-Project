@@ -75,7 +75,10 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
-  operator = e.target.textContent;
+  if (e.target.id === "equalButton") {
+  } else {
+    operator = e.target.textContent;
+  }
 }
 
 function calculate() {
@@ -83,6 +86,7 @@ function calculate() {
   } else {
     let result = operate(operators[operator], num1, num2);
     num1 = result;
+    operator = null;
     calcDisplay.textContent = result;
   }
 }
