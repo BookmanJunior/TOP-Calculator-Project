@@ -49,7 +49,7 @@ function displayNumber(e) {
     if (calcDisplay.textContent === "0") {
       calcDisplay.textContent = num1;
     } else {
-      number = document.createTextNode(num1);
+      const number = document.createTextNode(num1);
       calcDisplay.appendChild(number);
       num1 = parseInt(
         document.getElementById("currentCalculation").textContent
