@@ -76,24 +76,26 @@ const operators = {
 
 function operatorOfChoice(e) {
   if (e.target.id === "equalButton") {
-  } else {
-    operator = e.target.textContent;
   }
-  if (operator) {
+  operator = e.target.textContent;
+
+  if (num1 && num2) {
     const result = operate(operators[operator], num1, num2);
     num1 = result;
     num2 = null;
+    calcDisplay.textContent = result;
+    // For testing:
     console.log(`Num 1: ${num1}`);
+    console.log(operator);
     console.log(`Num 2: ${num2}`);
     console.log(`Result: ${result}`);
-    calcDisplay.textContent = result;
   }
 }
 
 function calculate() {
   if (!operator) {
   } else {
-    let result = operate(operators[operator], num1, num2);
+    const result = operate(operators[operator], num1, num2);
     num1 = result;
     operator = null;
     calcDisplay.textContent = result;
