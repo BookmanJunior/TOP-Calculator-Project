@@ -18,7 +18,6 @@ numberButtons.forEach((button) =>
 );
 clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
-equalButton.addEventListener("click", calculate);
 
 function add(num1, num2) {
   return num1 + num2;
@@ -75,31 +74,27 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
-  if (e.target.id === "equalButton") {
+  if (!operator) {
+    operator = e.target.textContent;
+    return;
   }
-  operator = e.target.textContent;
+
+  if (e.target.id === "equalButton" && num1 && num2) {
+    calculate();
+    return;
+  }
 
   if (num1 && num2) {
-    const result = operate(operators[operator], num1, num2);
-    num1 = result;
-    num2 = null;
-    calcDisplay.textContent = result;
-    // For testing:
-    console.log(`Num 1: ${num1}`);
-    console.log(operator);
-    console.log(`Num 2: ${num2}`);
-    console.log(`Result: ${result}`);
+    calculate();
+    return;
   }
 }
 
 function calculate() {
-  if (!operator) {
-  } else {
-    const result = operate(operators[operator], num1, num2);
-    num1 = result;
-    operator = null;
-    calcDisplay.textContent = result;
-  }
+  const result = operate(operators[operator], num1, num2);
+  num1 = result;
+  operator = null;
+  calcDisplay.textContent = result;
 }
 
 // Doesn't work
