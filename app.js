@@ -11,7 +11,7 @@ const equalButton = document.getElementById("equalButton");
 
 let num1 = 0;
 let num2 = 0;
-let operator;
+let operator = null;
 
 numberButtons.forEach((button) =>
   button.addEventListener("click", displayNumber)
@@ -78,6 +78,15 @@ function operatorOfChoice(e) {
   if (e.target.id === "equalButton") {
   } else {
     operator = e.target.textContent;
+  }
+  if (operator) {
+    const result = operate(operators[operator], num1, num2);
+    num1 = result;
+    num2 = null;
+    console.log(`Num 1: ${num1}`);
+    console.log(`Num 2: ${num2}`);
+    console.log(`Result: ${result}`);
+    calcDisplay.textContent = result;
   }
 }
 
