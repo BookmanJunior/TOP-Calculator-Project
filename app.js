@@ -81,12 +81,10 @@ function operatorOfChoice(e) {
 
   if (e.target.id === "equalButton" && num1 && num2) {
     calculate();
-    return;
   }
 
   if (num1 && num2) {
     calculate();
-    return;
   }
 }
 
@@ -96,6 +94,7 @@ function calculate() {
   num2 = 0;
   operator = null;
   calcDisplay.textContent = result;
+  return;
 }
 
 // Doesn't work
