@@ -93,6 +93,7 @@ function operatorOfChoice(e) {
 function calculate() {
   const result = operate(operators[operator], num1, num2);
   num1 = result;
+  num2 = 0;
   operator = null;
   calcDisplay.textContent = result;
 }
