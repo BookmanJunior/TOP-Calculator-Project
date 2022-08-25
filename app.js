@@ -86,14 +86,14 @@ function operatorOfChoice(e) {
     calculate();
   }
 
-  if (num1 && num2 == 0 && operator === "÷") {
+  if (num1 && num2 && operator === "÷") {
     calcDisplay.textContent = "OOPSIE";
   }
 }
 
 function calculate() {
-  const result = operate(operators[operator], num1, num2);
-  num1 = result;
+  const result = operate(operators[operator], num1, num2).toFixed(5);
+  num1 = parseInt(result);
   num2 = null;
   operator = null;
   calcDisplay.textContent = result;
