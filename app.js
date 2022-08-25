@@ -82,15 +82,11 @@ function operatorOfChoice(e) {
     }
   }
 
-  if (e.target.id === "equalButton" && num1 && num2 !== null) {
-    calculate();
-  }
-
   if (num1 && num2) {
     calculate();
   }
 
-  if (operator === "÷" && num1 && !num2) {
+  if (num1 && num2 == 0 && operator === "÷") {
     calcDisplay.textContent = "OOPSIE";
   }
 }
