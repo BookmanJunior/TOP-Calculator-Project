@@ -10,7 +10,7 @@ const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
 
 let num1 = 0;
-let num2 = 0;
+let num2 = null;
 let operator = null;
 
 numberButtons.forEach((button) =>
@@ -82,7 +82,7 @@ function operatorOfChoice(e) {
     }
   }
 
-  if (e.target.id === "equalButton" && num1 && num2) {
+  if (e.target.id === "equalButton" && num1 && num2 !== null) {
     calculate();
   }
 
@@ -98,7 +98,7 @@ function operatorOfChoice(e) {
 function calculate() {
   const result = operate(operators[operator], num1, num2);
   num1 = result;
-  num2 = 0;
+  num2 = null;
   operator = null;
   calcDisplay.textContent = result;
 }
