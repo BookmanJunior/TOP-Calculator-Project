@@ -36,7 +36,7 @@ function divide(num1, num2) {
 }
 
 function operate(operation, num1, num2) {
-  return operation(num1, num2);
+  return parseFloat(operation(num1, num2));
 }
 
 function displayNumber(e) {
@@ -92,7 +92,7 @@ function operatorOfChoice(e) {
 
 function calculate() {
   const result = operate(operators[operator], num1, num2);
-  num1 = parseInt(result);
+  num1 = result;
   num2 = 0;
   operator = null;
   calcDisplay.textContent = result;
