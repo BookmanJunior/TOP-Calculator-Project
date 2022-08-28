@@ -92,7 +92,7 @@ function operatorOfChoice(e) {
 }
 
 function calculate() {
-  const result = operate(operators[operator], num1, num2).toFixed(5);
+  const result = operate(operators[operator], num1, num2);
   num1 = parseInt(result);
   num2 = null;
   operator = null;
