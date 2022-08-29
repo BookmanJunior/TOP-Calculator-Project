@@ -81,7 +81,10 @@ function operatorOfChoice(e) {
     }
   }
 
-  if (typeof num1 === "number" && num2 === 0 && operator === "÷") {
+  if (
+    (operator === "÷" && typeof num1 === "number" && num2 === 0) ||
+    (num1 === 0 && typeof num2 === "number")
+  ) {
     calcDisplay.textContent = "OOPSIE";
   } else if (typeof num1 === "number" && typeof num2 === "number") {
     calculate();
