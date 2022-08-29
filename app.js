@@ -82,10 +82,12 @@ function operatorOfChoice(e) {
     }
   }
 
-  if (num1 && num2 === 0 && operator === "÷") {
+  if (num1 && !num2 && operator === "÷") {
     calcDisplay.textContent = "OOPSIE";
+    return;
   }
-  if (num1 && num2) {
+
+  if (operator) {
     calculate();
   }
 }
