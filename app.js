@@ -36,7 +36,7 @@ function divide(num1, num2) {
 }
 
 function operate(operation, num1, num2) {
-  return parseFloat(operation(num1, num2));
+  return operation(num1, num2);
 }
 
 function displayNumber(e) {
