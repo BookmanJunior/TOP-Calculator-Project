@@ -9,9 +9,9 @@ const numberButtons = Array.from(
 const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
 
-let num1 = 0;
-let num2 = 0;
-let operator = null;
+let num1;
+let num2;
+let operator;
 
 numberButtons.forEach((button) =>
   button.addEventListener("click", displayNumber)
@@ -59,9 +59,9 @@ function displayNumber(e) {
 }
 
 function clearInput() {
-  num1 = 0;
-  num2 = 0;
-  operator = null;
+  num1 = undefined;
+  num2 = undefined;
+  operator = undefined;
   calcDisplay.textContent = 0;
 }
 
@@ -78,16 +78,12 @@ function operatorOfChoice(e) {
     if (e.target.id === "equalButton") {
     } else {
       operator = e.target.textContent;
-      return;
     }
   }
 
-  if (num1 && !num2 && operator === "÷") {
+  if (typeof num1 === "number" && num2 === 0 && operator === "÷") {
     calcDisplay.textContent = "OOPSIE";
-    return;
-  }
-
-  if (operator) {
+  } else if (typeof num1 === "number" && typeof num2 === "number") {
     calculate();
   }
 }
@@ -95,8 +91,8 @@ function operatorOfChoice(e) {
 function calculate() {
   const result = operate(operators[operator], num1, num2);
   num1 = result;
-  num2 = 0;
-  operator = null;
+  num2 = undefined;
+  operator = undefined;
   calcDisplay.textContent = result;
 }
 
