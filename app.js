@@ -40,22 +40,20 @@ function operate(operation, num1, num2) {
 }
 
 function displayNumber(e) {
-  if (operator) {
-    num2 = parseInt(e.target.textContent);
-    calcDisplay.textContent = num2;
+  const numEntered = e.target.textContent;
+  if (!num1) {
+    num1 += numEntered;
+    num1 = convertNumber(num1);
+    calcDisplay.textContent = num1;
   } else {
-    num1 = parseInt(e.target.textContent);
-    if (calcDisplay.textContent === "0") {
-      calcDisplay.textContent = num1;
-    } else {
-      const number = document.createTextNode(num1);
-      calcDisplay.appendChild(number);
-      num1 = parseInt(
-        document.getElementById("currentCalculation").textContent
-      );
-      console.log(num1);
-    }
+    num2 += numEntered;
+    num2 = convertNumber(num2);
+    calcDisplay.textContent = num2;
   }
+}
+
+function convertNumber(num) {
+  return parseFloat(num.replace("undefined", ""));
 }
 
 function clearInput() {
