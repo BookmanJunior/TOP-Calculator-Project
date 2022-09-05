@@ -11,6 +11,7 @@ const equalButton = document.getElementById("equalButton");
 
 let num1;
 let num2;
+let answer;
 let operator;
 
 numberButtons.forEach((button) =>
@@ -44,16 +45,16 @@ function displayNumber(e) {
   if (!num1) {
     num1 += numEntered;
     num1 = convertNumber(num1);
-    calcDisplay.textContent = num1;
   } else {
     num2 += numEntered;
     num2 = convertNumber(num2);
-    calcDisplay.textContent = num2;
   }
 }
 
 function convertNumber(num) {
-  return parseFloat(num.replace("undefined", ""));
+  const convertedNum = parseFloat(num.replace("undefined", ""));
+  calcDisplay.textContent = convertedNum;
+  return convertedNum;
 }
 
 function clearInput() {
@@ -84,7 +85,7 @@ function operatorOfChoice(e) {
     (num1 === 0 && typeof num2 === "number")
   ) {
     calcDisplay.textContent = "OOPSIE";
-  } else if (typeof num1 === "number" && typeof num2 === "number") {
+  } else if (operator && typeof num1 === "number" && typeof num2 === "number") {
     calculate();
   }
 }
@@ -92,6 +93,8 @@ function operatorOfChoice(e) {
 function calculate() {
   const result = operate(operators[operator], num1, num2);
   num1 = result;
+  console.log(num1);
+  console.log(num2);
   num2 = undefined;
   operator = undefined;
   calcDisplay.textContent = result;
