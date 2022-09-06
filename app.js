@@ -43,22 +43,20 @@ function operate(operation, num1, num2) {
 function displayNumber(e) {
   const numEntered = e.target.textContent;
   if (operator) {
-    num2 += numEntered;
-    num2 = convertNumber(num2);
+    num2 = convertNumber(num2, numEntered);
   } else if (!operator) {
     result = undefined;
-    num1 += numEntered;
-    num1 = convertNumber(num1);
+    num1 = convertNumber(num1, numEntered);
   } else {
-    num2 += numEntered;
-    num2 = convertNumber(num2);
+    num2 = convertNumber(num2, numEntered);
   }
 }
 
-function convertNumber(num) {
-  const convertedNum = parseFloat(num.replace("undefined", ""));
-  calcDisplay.textContent = convertedNum;
-  return convertedNum;
+function convertNumber(num, enteredNum) {
+  num += enteredNum;
+  num = parseFloat(num.replace("undefined", ""));
+  calcDisplay.textContent = num;
+  return num;
 }
 
 function clearInput() {
