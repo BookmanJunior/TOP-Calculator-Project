@@ -4,6 +4,7 @@ const resultDisplay = document.getElementById("caclResult");
 const functionButtons = document.getElementById("functionButtons");
 const clearButton = document.getElementById("clear");
 const percentageButton = document.getElementById("percentageButton");
+const plusMinusBtn = document.getElementById("plusMinusToggle");
 const numberButtons = Array.from(
   document.getElementsByClassName("number-button")
 );
@@ -20,6 +21,7 @@ numberButtons.forEach((button) =>
 );
 clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
+plusMinusBtn.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", calculatePercentage);
 
 function add(num1, num2) {
@@ -112,6 +114,19 @@ function clearInput() {
   result = undefined;
   operator = undefined;
   calcDisplay.textContent = 0;
+}
+
+function plusMinus() {
+  if (num1 && !num2) {
+    num1 = -+num1;
+    calcDisplay.textContent = num1;
+  } else if (num2) {
+    num2 = -+num2;
+    calcDisplay.textContent = num2;
+  } else {
+    result = -+result;
+    calcDisplay.textContent = result;
+  }
 }
 
 function calculatePercentage() {
