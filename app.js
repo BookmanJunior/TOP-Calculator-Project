@@ -3,6 +3,7 @@ const calcDisplay = document.getElementById("currentCalculation");
 const resultDisplay = document.getElementById("caclResult");
 const functionButtons = document.getElementById("functionButtons");
 const clearButton = document.getElementById("clear");
+const percentageButton = document.getElementById("percentageButton");
 const numberButtons = Array.from(
   document.getElementsByClassName("number-button")
 );
@@ -19,6 +20,7 @@ numberButtons.forEach((button) =>
 );
 clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
+percentageButton.addEventListener("click", calculatePercentage);
 
 function add(num1, num2) {
   return num1 + num2;
@@ -63,14 +65,6 @@ function convertNumber(num, input) {
   return num;
 }
 
-function clearInput() {
-  num1 = undefined;
-  num2 = undefined;
-  result = undefined;
-  operator = undefined;
-  calcDisplay.textContent = 0;
-}
-
 // Works
 const operators = {
   "+": add,
@@ -110,6 +104,27 @@ function calculate() {
   num2 = undefined;
   operator = undefined;
   calcDisplay.textContent = result;
+}
+
+function clearInput() {
+  num1 = undefined;
+  num2 = undefined;
+  result = undefined;
+  operator = undefined;
+  calcDisplay.textContent = 0;
+}
+
+function calculatePercentage() {
+  if (num1 && !num2) {
+    num1 = num1 / 100;
+    calcDisplay.textContent = num1;
+  } else if (num2) {
+    num2 = num2 / 100;
+    calcDisplay.textContent = num2;
+  } else {
+    result = result / 100;
+    calcDisplay.textContent = result;
+  }
 }
 
 // Doesn't work
