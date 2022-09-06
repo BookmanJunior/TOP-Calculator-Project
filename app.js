@@ -11,7 +11,7 @@ const equalButton = document.getElementById("equalButton");
 
 let num1;
 let num2;
-let answer;
+let result;
 let operator;
 
 numberButtons.forEach((button) =>
@@ -46,7 +46,7 @@ function displayNumber(e) {
     num2 += numEntered;
     num2 = convertNumber(num2);
   } else if (!operator) {
-    answer = undefined;
+    result = undefined;
     num1 += numEntered;
     num1 = convertNumber(num1);
   } else {
@@ -64,7 +64,7 @@ function convertNumber(num) {
 function clearInput() {
   num1 = undefined;
   num2 = undefined;
-  answer = undefined;
+  result = undefined;
   operator = undefined;
   calcDisplay.textContent = 0;
 }
@@ -90,28 +90,23 @@ function operatorOfChoice(e) {
     calcDisplay.textContent = "OOPSIE";
   } else if (
     (operator && typeof num1 === "number" && typeof num2 === "number") ||
-    (typeof answer === "number" && typeof num2 === "number")
+    (typeof result === "number" && typeof num2 === "number")
   ) {
     calculate();
   }
 }
 
 function calculate() {
-  if (answer && operator) {
-    const result = operate(operators[operator], answer, num2);
-    answer = result;
-    num1 = undefined;
-    num2 = undefined;
-    operator = undefined;
-    calcDisplay.textContent = result;
+  if (result && operator) {
+    result = operate(operators[operator], result, num2);
   } else {
-    const result = operate(operators[operator], num1, num2);
-    answer = result;
-    num1 = undefined;
-    num2 = undefined;
+    result = operate(operators[operator], num1, num2);
     operator = undefined;
-    calcDisplay.textContent = result;
   }
+  num1 = undefined;
+  num2 = undefined;
+  operator = undefined;
+  calcDisplay.textContent = result;
 }
 
 // Doesn't work
