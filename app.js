@@ -73,8 +73,9 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
+  console.log(e.target.type);
   if (!operator) {
-    if (e.target.id === "equalButton") {
+    if (e.target.id === "equalButton" || e.target.type !== "submit") {
     } else {
       operator = e.target.textContent;
     }
@@ -93,8 +94,6 @@ function operatorOfChoice(e) {
 function calculate() {
   const result = operate(operators[operator], num1, num2);
   num1 = result;
-  console.log(num1);
-  console.log(num2);
   num2 = undefined;
   operator = undefined;
   calcDisplay.textContent = result;
