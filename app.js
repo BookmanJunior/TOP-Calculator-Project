@@ -42,7 +42,11 @@ function operate(operation, num1, num2) {
 
 function displayNumber(e) {
   const numEntered = e.target.textContent;
-  if (!operator) {
+  if (operator) {
+    num2 += numEntered;
+    num2 = convertNumber(num2);
+  } else if (!operator) {
+    answer = undefined;
     num1 += numEntered;
     num1 = convertNumber(num1);
   } else {
@@ -60,6 +64,7 @@ function convertNumber(num) {
 function clearInput() {
   num1 = undefined;
   num2 = undefined;
+  answer = undefined;
   operator = undefined;
   calcDisplay.textContent = 0;
 }
@@ -73,11 +78,9 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
-  if (!operator) {
-    if (e.target.id === "equalButton" || e.target.type !== "submit") {
-    } else {
-      operator = e.target.textContent;
-    }
+  if (e.target.id === "equalButton" || e.target.type !== "submit") {
+  } else {
+    operator = e.target.textContent;
   }
 
   if (
@@ -85,17 +88,30 @@ function operatorOfChoice(e) {
     (num1 === 0 && typeof num2 === "number")
   ) {
     calcDisplay.textContent = "OOPSIE";
-  } else if (operator && typeof num1 === "number" && typeof num2 === "number") {
+  } else if (
+    (operator && typeof num1 === "number" && typeof num2 === "number") ||
+    (typeof answer === "number" && typeof num2 === "number")
+  ) {
     calculate();
   }
 }
 
 function calculate() {
-  const result = operate(operators[operator], num1, num2);
-  num1 = result;
-  num2 = undefined;
-  operator = undefined;
-  calcDisplay.textContent = result;
+  if (answer && operator) {
+    const result = operate(operators[operator], answer, num2);
+    answer = result;
+    num1 = undefined;
+    num2 = undefined;
+    operator = undefined;
+    calcDisplay.textContent = result;
+  } else {
+    const result = operate(operators[operator], num1, num2);
+    answer = result;
+    num1 = undefined;
+    num2 = undefined;
+    operator = undefined;
+    calcDisplay.textContent = result;
+  }
 }
 
 // Doesn't work
