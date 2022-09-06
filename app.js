@@ -42,7 +42,7 @@ function operate(operation, num1, num2) {
 
 function displayNumber(e) {
   const numEntered = e.target.textContent;
-  if (!num1) {
+  if (!operator) {
     num1 += numEntered;
     num1 = convertNumber(num1);
   } else {
@@ -73,7 +73,6 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
-  console.log(e.target.type);
   if (!operator) {
     if (e.target.id === "equalButton" || e.target.type !== "submit") {
     } else {
