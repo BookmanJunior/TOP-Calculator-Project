@@ -52,8 +52,8 @@ function displayNumber(e) {
   }
 }
 
-function convertNumber(num, enteredNum) {
-  num += enteredNum;
+function convertNumber(num, input) {
+  num += input;
   num = parseFloat(num.replace("undefined", ""));
   calcDisplay.textContent = num;
   return num;
@@ -82,12 +82,13 @@ function operatorOfChoice(e) {
   }
 
   if (
-    (operator === "÷" && typeof num1 === "number" && num2 === 0) ||
-    (num1 === 0 && typeof num2 === "number")
+    (typeof num1 === "number" && num2 === 0) ||
+    (num1 === 0 && typeof num2 === "number") ||
+    (typeof result === "number" && num2 === 0)
   ) {
-    calcDisplay.textContent = "OOPSIE";
+    calcDisplay.textContent = "OOPS";
   } else if (
-    (operator && typeof num1 === "number" && typeof num2 === "number") ||
+    (typeof num1 === "number" && typeof num2 === "number") ||
     (typeof result === "number" && typeof num2 === "number")
   ) {
     calculate();
