@@ -54,7 +54,11 @@ function displayNumber(e) {
 
 function convertNumber(num, input) {
   num += input;
-  num = parseFloat(num.replace("undefined", ""));
+  if (input === ".") {
+    num = num.replace("undefined", "");
+  } else {
+    num = parseFloat(num.replace("undefined", ""));
+  }
   calcDisplay.textContent = num;
   return num;
 }
