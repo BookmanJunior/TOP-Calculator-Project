@@ -98,8 +98,10 @@ function operatorOfChoice(e) {
 function calculate() {
   if (result && operator) {
     result = operate(operators[operator], result, num2);
+    resultDisplay.textContent = `${result} ${operator} ${num2}`;
   } else {
     result = operate(operators[operator], num1, num2);
+    resultDisplay.textContent = `${num1} ${operator} ${num2}`;
     operator = undefined;
   }
   num1 = undefined;
@@ -114,17 +116,18 @@ function clearInput() {
   result = undefined;
   operator = undefined;
   calcDisplay.textContent = 0;
+  resultDisplay.textContent = 0;
 }
 
 function plusMinus() {
   if (num1 && !num2) {
-    num1 = -+num1;
+    num1 = -num1;
     calcDisplay.textContent = num1;
   } else if (num2) {
-    num2 = -+num2;
+    num2 = -num2;
     calcDisplay.textContent = num2;
-  } else {
-    result = -+result;
+  } else if (result) {
+    result = -result;
     calcDisplay.textContent = result;
   }
 }
@@ -136,7 +139,7 @@ function calculatePercentage() {
   } else if (num2) {
     num2 = num2 / 100;
     calcDisplay.textContent = num2;
-  } else {
+  } else if (result) {
     result = result / 100;
     calcDisplay.textContent = result;
   }
