@@ -99,7 +99,7 @@ function calculate() {
   if (result && operator) {
     result = operate(operators[operator], result, num2);
     // u00A0 adds space in template literal
-    const prevCalc = document.createTextNode(`\u00A0${operator} ${result}`);
+    const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
     resultDisplay.appendChild(prevCalc);
   } else {
     result = operate(operators[operator], num1, num2);
