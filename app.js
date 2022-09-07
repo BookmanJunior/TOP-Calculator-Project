@@ -71,7 +71,7 @@ function convertNumber(num, input) {
 const operators = {
   "+": add,
   "-": subtract,
-  X: multiply,
+  x: multiply,
   "÷": divide,
 };
 
@@ -98,7 +98,9 @@ function operatorOfChoice(e) {
 function calculate() {
   if (result && operator) {
     result = operate(operators[operator], result, num2);
-    resultDisplay.textContent = `${result} ${operator} ${num2}`;
+    // u00A0 adds space in template literal
+    const prevCalc = document.createTextNode(`\u00A0${operator} ${result}`);
+    resultDisplay.appendChild(prevCalc);
   } else {
     result = operate(operators[operator], num1, num2);
     resultDisplay.textContent = `${num1} ${operator} ${num2}`;
