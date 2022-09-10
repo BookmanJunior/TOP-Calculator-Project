@@ -76,7 +76,11 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
-  if (e.target.id === "equalButton" || e.target.type !== "submit") {
+  if (
+    e.target.id === "equalButton" ||
+    e.target.type !== "submit" ||
+    (!num1 && !num2 && !result)
+  ) {
   } else {
     operator = e.target.textContent;
   }
