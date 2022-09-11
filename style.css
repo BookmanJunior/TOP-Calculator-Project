@@ -12,3 +12,36 @@ body {
   align-items: center;
   height: 100vh;
 }
+
+.body-container {
+  display: flex;
+}
+
+.wrapper {
+  width: 265px;
+}
+
+.number-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.operator-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.function-buttons {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+button {
+  width: 60px;
+  font-size: 18px;
+  padding: 16px;
+  border-radius: 8px;
+}
