@@ -13,12 +13,12 @@ body {
   height: 100vh;
 }
 
-.body-container {
-  display: flex;
-}
-
 .wrapper {
   width: 265px;
+}
+
+.body-container {
+  display: flex;
 }
 
 .number-buttons {
@@ -44,4 +44,19 @@ button {
   font-size: 18px;
   padding: 16px;
   border-radius: 8px;
+}
+
+.calculator-display {
+  text-align: right;
+}
+
+.current-calculation {
+  font-size: 48px;
+  margin-bottom: 40px;
+}
+
+.result {
+  color: gray;
+  font-size: 24px;
+  margin-bottom: 15px;
 }
