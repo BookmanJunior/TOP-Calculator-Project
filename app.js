@@ -81,41 +81,41 @@ function operatorOfChoice(e) {
   } else {
     operator = e.target.textContent;
   }
-  if (
-    (typeof num1 === "number" && typeof num2 === "number") ||
-    (typeof result === "number" && typeof num2 === "number")
-  ) {
-    calculate();
-  }
+  calculate();
 }
 
 function calculate() {
   if (
-    (typeof num1 === "number" && num2 === 0) ||
-    (num1 === 0 && typeof num2 === "number") ||
-    (typeof result === "number" && num2 === 0)
+    (typeof num1 === "number" && typeof num2 === "number") ||
+    (typeof result === "number" && typeof num2 === "number")
   ) {
-    calcDisplay.textContent = "OOPS";
+    if (
+      (typeof num1 === "number" && num2 === 0) ||
+      (num1 === 0 && typeof num2 === "number") ||
+      (typeof result === "number" && num2 === 0)
+    ) {
+      calcDisplay.textContent = "OOPS";
+      num1 = undefined;
+      num2 = undefined;
+      result = undefined;
+      operator = undefined;
+      return;
+    }
+    if (result && operator) {
+      result = operate(operators[operator], result, num2);
+      // u00A0 adds space in template literal
+      const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
+      resultDisplay.appendChild(prevCalc);
+    } else {
+      result = operate(operators[operator], num1, num2);
+      resultDisplay.textContent = `${num1} ${operator} ${num2}`;
+      operator = undefined;
+    }
     num1 = undefined;
     num2 = undefined;
-    result = undefined;
     operator = undefined;
-    return;
+    calcDisplay.textContent = result;
   }
-  if (result && operator) {
-    result = operate(operators[operator], result, num2);
-    // u00A0 adds space in template literal
-    const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
-    resultDisplay.appendChild(prevCalc);
-  } else {
-    result = operate(operators[operator], num1, num2);
-    resultDisplay.textContent = `${num1} ${operator} ${num2}`;
-    operator = undefined;
-  }
-  num1 = undefined;
-  num2 = undefined;
-  operator = undefined;
-  calcDisplay.textContent = result;
 }
 
 function clearInput() {
