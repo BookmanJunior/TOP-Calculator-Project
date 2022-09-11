@@ -23,6 +23,7 @@ clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusBtn.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", calculatePercentage);
+equalButton.addEventListener("click", calculate);
 
 function add(num1, num2) {
   return num1 + num2;
@@ -76,11 +77,7 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
-  if (
-    e.target.id === "equalButton" ||
-    e.target.type !== "submit" ||
-    (!num1 && !num2 && !result)
-  ) {
+  if (e.target.type !== "submit" || (!num1 && !num2 && !result)) {
   } else {
     operator = e.target.textContent;
   }
