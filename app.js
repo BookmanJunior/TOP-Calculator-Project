@@ -90,6 +90,7 @@ function operatorOfChoice(e) {
 }
 
 function calculate() {
+  checkDivisionByZero();
   if (
     (typeof num1 === "number" && typeof num2 === "number") ||
     (typeof result === "number" && typeof num2 === "number")
@@ -114,7 +115,6 @@ function calculate() {
 function checkDivisionByZero() {
   if (
     (typeof num1 === "number" && num2 === 0) ||
-    (num1 === 0 && typeof num2 === "number") ||
     (typeof result === "number" && num2 === 0)
   ) {
     calcDisplay.textContent = "OOPS";
