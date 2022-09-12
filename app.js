@@ -79,7 +79,10 @@ const operators = {
 };
 
 function operatorOfChoice(e) {
-  if (e.target.type !== "submit" || (!num1 && !num2 && !result)) {
+  if (
+    e.target.type !== "submit" ||
+    (typeof num1 !== "number" && !num2 && !result)
+  ) {
   } else {
     operator = e.target.textContent;
   }
@@ -91,18 +94,6 @@ function calculate() {
     (typeof num1 === "number" && typeof num2 === "number") ||
     (typeof result === "number" && typeof num2 === "number")
   ) {
-    if (
-      (typeof num1 === "number" && num2 === 0) ||
-      (num1 === 0 && typeof num2 === "number") ||
-      (typeof result === "number" && num2 === 0)
-    ) {
-      calcDisplay.textContent = "OOPS";
-      num1 = undefined;
-      num2 = undefined;
-      result = undefined;
-      operator = undefined;
-      return;
-    }
     if (result && operator) {
       result = operate(operators[operator], result, num2);
       // u00A0 adds space in template literal
@@ -117,6 +108,21 @@ function calculate() {
     num2 = undefined;
     operator = undefined;
     calcDisplay.textContent = result;
+  }
+}
+
+function checkDivisionByZero() {
+  if (
+    (typeof num1 === "number" && num2 === 0) ||
+    (num1 === 0 && typeof num2 === "number") ||
+    (typeof result === "number" && num2 === 0)
+  ) {
+    calcDisplay.textContent = "OOPS";
+    num1 = undefined;
+    num2 = undefined;
+    result = undefined;
+    operator = undefined;
+    return;
   }
 }
 
