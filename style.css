@@ -63,12 +63,12 @@ button {
   text-align: right;
 }
 
-.current-calculation {
+.result {
   font-size: 44px;
   margin-bottom: 40px;
 }
 
-.result {
+.current-calculation {
   color: gray;
   font-size: 24px;
   margin-bottom: 15px;
