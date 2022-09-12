@@ -10,6 +10,7 @@ const numberButtons = Array.from(
 );
 const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
+const backSpaceButton = document.getElementById("delete");
 
 let num1;
 let num2;
@@ -24,6 +25,7 @@ operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusBtn.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", calculatePercentage);
 equalButton.addEventListener("click", calculate);
+backSpaceButton.addEventListener("click", undoNumber);
 
 function add(num1, num2) {
   return num1 + num2;
@@ -151,6 +153,24 @@ function calculatePercentage() {
     result = result / 100;
     calcDisplay.textContent = result;
   }
+}
+
+function undoNumber() {
+  if (num1 && !num2) {
+    removeLastDigit(num1);
+  } else if (num2) {
+    removeLastDigit(num2);
+  } else if (result) {
+    removeLastDigit(result);
+  }
+}
+
+function removeLastDigit(num) {
+  num = parseFloat(num.toString().slice(0, -1));
+  if (num.toString() === "NaN") {
+    num = 0;
+  }
+  calcDisplay.textContent = num;
 }
 
 // Doesn't work
