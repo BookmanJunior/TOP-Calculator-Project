@@ -157,11 +157,11 @@ function calculatePercentage() {
 
 function undoNumber() {
   if (num1 && !num2) {
-    removeLastDigit(num1);
+    num1 = removeLastDigit(num1);
   } else if (num2) {
-    removeLastDigit(num2);
+    num2 = removeLastDigit(num2);
   } else if (result) {
-    removeLastDigit(result);
+    result = removeLastDigit(result);
   }
 }
 
@@ -171,6 +171,7 @@ function removeLastDigit(num) {
     num = 0;
   }
   calcDisplay.textContent = num;
+  return num;
 }
 
 // Doesn't work
