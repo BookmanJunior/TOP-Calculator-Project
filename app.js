@@ -62,7 +62,7 @@ function displayNumber(e) {
 function convertNumber(num, input) {
   num += input;
   if (input === ".") {
-    num = num.replace("undefined", "");
+    num = num.replace("undefined", 0);
   } else {
     num = parseFloat(num.replace("undefined", ""));
   }
