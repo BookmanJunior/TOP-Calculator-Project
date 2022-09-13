@@ -133,7 +133,6 @@ function checkDivisionByZero() {
     num2 = undefined;
     result = undefined;
     operator = undefined;
-    return;
   }
 }
 
