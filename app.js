@@ -11,6 +11,7 @@ const numberButtons = Array.from(
 const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
 const backSpaceButton = document.getElementById("delete");
+const decimalBtn = document.getElementById("decimalButton");
 
 let num1;
 let num2;
@@ -61,6 +62,7 @@ function displayNumber(e) {
 
 function convertNumber(num, input) {
   num += input;
+  checkForDecimal(num);
   if (input === ".") {
     num = num.replace("undefined", 0);
   } else {
@@ -68,6 +70,14 @@ function convertNumber(num, input) {
   }
   calcDisplay.textContent = num;
   return num;
+}
+
+function checkForDecimal(num) {
+  if (num.toString().includes(".")) {
+    decimalBtn.disabled = true;
+  } else {
+    decimalBtn.disabled = false;
+  }
 }
 
 // Works
@@ -134,6 +144,7 @@ function clearInput() {
   operator = undefined;
   calcDisplay.textContent = 0;
   resultDisplay.textContent = 0;
+  decimalBtn.disabled = false;
 }
 
 function plusMinus() {
