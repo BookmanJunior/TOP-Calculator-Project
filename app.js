@@ -126,7 +126,7 @@ function calculate() {
 
 function checkDivisionByZero() {
   if (
-    (typeof num1 === "number" && num2 === 0) ||
+    (operator === "÷" && typeof num1 === "number" && num2 === 0) ||
     (typeof result === "number" && num2 === 0)
   ) {
     mainCalcDisplay.textContent = "OOPS";
