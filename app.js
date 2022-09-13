@@ -108,6 +108,7 @@ function calculate() {
     num1 = undefined;
     num2 = undefined;
     operator = undefined;
+    result = Math.round(result * 100) / 100;
     calcDisplay.textContent = result;
   }
 }
