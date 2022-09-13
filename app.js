@@ -166,12 +166,15 @@ function plusMinus() {
 function calculatePercentage() {
   if (num1 && !num2) {
     num1 = num1 / 100;
+    checkForDecimal(num1);
     mainCalcDisplay.textContent = num1;
   } else if (num2) {
     num2 = num2 / 100;
+    checkForDecimal(num2);
     mainCalcDisplay.textContent = num2;
   } else if (result) {
     result = result / 100;
+    checkForDecimal(result);
     mainCalcDisplay.textContent = result;
   }
 }
