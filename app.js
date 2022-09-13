@@ -91,7 +91,9 @@ const operators = {
 function operatorOfChoice(e) {
   if (
     e.target.type !== "submit" ||
-    (typeof num1 !== "number" && !num2 && !result)
+    (typeof num1 !== "number" &&
+      typeof num2 === "number" &&
+      typeof result === "number")
   ) {
   } else {
     operator = e.target.textContent;
@@ -105,7 +107,7 @@ function calculate() {
     (typeof num1 === "number" && typeof num2 === "number") ||
     (typeof result === "number" && typeof num2 === "number")
   ) {
-    if (result && operator) {
+    if (typeof result === "number" && operator) {
       result = operate(operators[operator], result, num2);
       // u00A0 adds space in template literal
       const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
