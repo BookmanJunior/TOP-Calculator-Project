@@ -113,7 +113,7 @@ function calculate() {
     } else {
       result = operate(operators[operator], num1, num2);
       operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
-      equalSign.appendChild(document.createTextNode("="));
+      equalSign.textContent = "=";
       operator = undefined;
     }
     num1 = undefined;
