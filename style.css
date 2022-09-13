@@ -21,7 +21,7 @@ body {
   display: flex;
 }
 
-.number-buttons {
+.operand-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
