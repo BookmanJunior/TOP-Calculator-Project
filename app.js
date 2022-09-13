@@ -183,13 +183,12 @@ function undoNumber() {
 }
 
 function removeLastDigit(num) {
-  if (num.toString().includes(".")) {
-    num = num.toString().slice(0, -1);
-  } else {
-    num = parseFloat(num.toString().slice(0, -1));
-    if (num.toString() === "NaN") {
-      num = 0;
-    }
+  num = num.toString().slice(0, -1);
+  if (!num) {
+    num = 0;
+  }
+  if (!num.toString().includes(".")) {
+    num = parseFloat(num);
   }
   checkForDecimal(num);
   calcDisplay.textContent = num;
