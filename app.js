@@ -1,3 +1,8 @@
+let num1;
+let num2;
+let result;
+let operator;
+
 const mainCalcDisplay = document.getElementById("calcResult");
 const operationsDisplay = document.getElementById("currentCalcDisplay");
 const equalSign = document.getElementById("equalSign");
@@ -6,17 +11,12 @@ const clearButton = document.getElementById("clear");
 const percentageButton = document.getElementById("percentageButton");
 const plusMinusButton = document.getElementById("plusMinusToggle");
 const numberButtons = Array.from(
-  document.getElementsByClassName("number-button")
+  document.getElementsByClassName("operand-button")
 );
 const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
 const backSpaceButton = document.getElementById("delete");
 const decimalBtn = document.getElementById("decimalButton");
-
-let num1;
-let num2;
-let result;
-let operator;
 
 numberButtons.forEach((button) =>
   button.addEventListener("click", displayNumber)
