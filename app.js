@@ -1,10 +1,10 @@
-const display = document.getElementById("calculatorDisplay");
-const resultDisplay = document.getElementById("currentCalculation");
-const calcDisplay = document.getElementById("calcResult");
+const mainCalcDisplay = document.getElementById("calcResult");
+const operationsDisplay = document.getElementById("currentCalcDisplay");
+const equalSign = document.getElementById("equalSign");
 const functionButtons = document.getElementById("functionButtons");
 const clearButton = document.getElementById("clear");
 const percentageButton = document.getElementById("percentageButton");
-const plusMinusBtn = document.getElementById("plusMinusToggle");
+const plusMinusButton = document.getElementById("plusMinusToggle");
 const numberButtons = Array.from(
   document.getElementsByClassName("number-button")
 );
@@ -23,7 +23,7 @@ numberButtons.forEach((button) =>
 );
 clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
-plusMinusBtn.addEventListener("click", plusMinus);
+plusMinusButton.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", calculatePercentage);
 equalButton.addEventListener("click", calculate);
 backSpaceButton.addEventListener("click", undoNumber);
@@ -68,7 +68,7 @@ function convertNumber(num, input) {
   } else {
     num = parseFloat(num.replace("undefined", ""));
   }
-  calcDisplay.textContent = num;
+  mainCalcDisplay.textContent = num;
   return num;
 }
 
@@ -109,17 +109,18 @@ function calculate() {
       result = operate(operators[operator], result, num2);
       // u00A0 adds space in template literal
       const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
-      resultDisplay.appendChild(prevCalc);
+      operationsDisplay.appendChild(prevCalc);
     } else {
       result = operate(operators[operator], num1, num2);
-      resultDisplay.textContent = `${num1} ${operator} ${num2}`;
+      operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
+      equalSign.appendChild(document.createTextNode("="));
       operator = undefined;
     }
     num1 = undefined;
     num2 = undefined;
     operator = undefined;
     result = Math.round(result * 100) / 100;
-    calcDisplay.textContent = result;
+    mainCalcDisplay.textContent = result;
   }
 }
 
@@ -128,7 +129,7 @@ function checkDivisionByZero() {
     (typeof num1 === "number" && num2 === 0) ||
     (typeof result === "number" && num2 === 0)
   ) {
-    calcDisplay.textContent = "OOPS";
+    mainCalcDisplay.textContent = "OOPS";
     num1 = undefined;
     num2 = undefined;
     result = undefined;
@@ -141,34 +142,35 @@ function clearInput() {
   num2 = undefined;
   result = undefined;
   operator = undefined;
-  calcDisplay.textContent = 0;
-  resultDisplay.textContent = 0;
+  mainCalcDisplay.textContent = 0;
+  operationsDisplay.textContent = 0;
+  equalSign.textContent = "";
   decimalBtn.disabled = false;
 }
 
 function plusMinus() {
   if (num1 && !num2) {
     num1 = -num1;
-    calcDisplay.textContent = num1;
+    mainCalcDisplay.textContent = num1;
   } else if (num2) {
     num2 = -num2;
-    calcDisplay.textContent = num2;
+    mainCalcDisplay.textContent = num2;
   } else if (result) {
     result = -result;
-    calcDisplay.textContent = result;
+    mainCalcDisplay.textContent = result;
   }
 }
 
 function calculatePercentage() {
   if (num1 && !num2) {
     num1 = num1 / 100;
-    calcDisplay.textContent = num1;
+    mainCalcDisplay.textContent = num1;
   } else if (num2) {
     num2 = num2 / 100;
-    calcDisplay.textContent = num2;
+    mainCalcDisplay.textContent = num2;
   } else if (result) {
     result = result / 100;
-    calcDisplay.textContent = result;
+    mainCalcDisplay.textContent = result;
   }
 }
 
@@ -191,7 +193,7 @@ function removeLastDigit(num) {
     num = parseFloat(num);
   }
   checkForDecimal(num);
-  calcDisplay.textContent = num;
+  mainCalcDisplay.textContent = num;
   return num;
 }
 
@@ -203,5 +205,5 @@ function removeLastDigit(num) {
 
 // function calculate() {
 //   let result = operate(operator, num1, num2);
-//   calcDisplay.textContent = result;
+//   mainCalcDisplay.textContent = result;
 // }
