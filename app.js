@@ -48,6 +48,10 @@ function operate(operation, num1, num2) {
   return operation(num1, num2);
 }
 
+function isRealNumber(num) {
+  return typeof num === "number";
+}
+
 function displayNumber(e) {
   const numEntered = e.target.textContent;
   if (operator) {
@@ -89,13 +93,11 @@ const operators = {
 function operatorOfChoice(e) {
   if (
     e.target.type !== "submit" ||
-    (typeof num1 !== "number" &&
-      typeof num2 !== "number" &&
-      typeof result !== "number")
+    (!isRealNumber(num1) && !isRealNumber(num2) && !isRealNumber(result))
   ) {
   } else if (
-    (typeof num1 === "number" && typeof num2 === "number") ||
-    (typeof result === "number" && typeof num2 === "number")
+    (isRealNumber(num1) && isRealNumber(num2)) ||
+    (isRealNumber(result) && isRealNumber(num2))
   ) {
     calculate();
     operator = e.target.textContent;
@@ -108,10 +110,10 @@ function operatorOfChoice(e) {
 function calculate() {
   checkDivisionByZero();
   if (
-    (typeof num1 === "number" && typeof num2 === "number") ||
-    (typeof result === "number" && typeof num2 === "number")
+    (isRealNumber(num1) && isRealNumber(num2)) ||
+    (isRealNumber(result) && isRealNumber(num2))
   ) {
-    if (typeof result === "number" && operator) {
+    if (isRealNumber(result) && operator) {
       continueCalculation();
     } else {
       startNewCalculation();
@@ -140,8 +142,8 @@ function startNewCalculation() {
 
 function checkDivisionByZero() {
   if (
-    (operator === "÷" && typeof num1 === "number" && num2 === 0) ||
-    (typeof result === "number" && num2 === 0)
+    (operator === "÷" && isRealNumber(num1) && num2 === 0) ||
+    (isRealNumber(result) && num2 === 0)
   ) {
     mainCalcDisplay.textContent = "OOPS";
     num1 = undefined;
