@@ -52,6 +52,18 @@ function isRealNumber(num) {
   return typeof num === "number";
 }
 
+function preventOverflow(num) {
+  if (
+    num.toString().length >= 6 &&
+    !Number.isInteger(num) &&
+    isRealNumber(num)
+  ) {
+    return parseFloat(num.toFixed(4));
+  } else {
+    return num;
+  }
+}
+
 function displayNumber(e) {
   const numEntered = e.target.textContent;
   if (operator) {
@@ -121,7 +133,7 @@ function calculate() {
     num1 = undefined;
     num2 = undefined;
     operator = undefined;
-    result = Math.round(result * 100) / 100;
+    result = preventOverflow(result);
     mainCalcDisplay.textContent = result;
   }
 }
@@ -180,14 +192,17 @@ function plusMinus() {
 function calculatePercentage() {
   if (num1 && !num2) {
     num1 = num1 / 100;
+    num1 = preventOverflow(num1);
     checkForDecimal(num1);
     mainCalcDisplay.textContent = num1;
   } else if (num2) {
     num2 = num2 / 100;
     checkForDecimal(num2);
+    num2 = preventOverflow(num2);
     mainCalcDisplay.textContent = num2;
   } else if (result) {
     result = result / 100;
+    result = preventOverflow(result);
     checkForDecimal(result);
     mainCalcDisplay.textContent = result;
   }
