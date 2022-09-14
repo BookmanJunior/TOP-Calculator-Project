@@ -93,7 +93,12 @@ function operatorOfChoice(e) {
       typeof num2 !== "number" &&
       typeof result !== "number")
   ) {
-  } else if (typeof num1 === "number" && typeof num2 === "number") {
+  } else if (
+    (typeof num1 === "number" && typeof num2 === "number") ||
+    (typeof result === "number" && typeof num2 === "number")
+  ) {
+    calculate();
+    operator = e.target.textContent;
   } else {
     operator = e.target.textContent;
   }
