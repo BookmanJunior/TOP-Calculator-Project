@@ -33,20 +33,31 @@ body {
   gap: 8px;
 }
 
-/* .operator-button:nth-of-type(1) {
-  border: 1px solid rgb(36, 146, 78);
-} */
-
 .function-buttons {
   display: flex;
   gap: 8px;
   margin: 8px 0;
 }
 
+.operand-buttons button {
+  border: 1px solid darkgray;
+}
+
+#equalButton {
+  border: 1px solid darkred;
+}
+
 .function-buttons button,
 .operator-buttons button {
   background-color: rgb(237, 248, 244);
+  border: 1px solid rgb(36, 146, 78);
   color: rgb(74, 188, 118);
+}
+
+.function-buttons button:nth-of-type(1):hover {
+  background-color: rgb(191, 65, 76);
+  border: darkred;
+  color: white;
 }
 
 #equalButton {
