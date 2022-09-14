@@ -28,42 +28,7 @@ percentageButton.addEventListener("click", calculatePercentage);
 equalButton.addEventListener("click", calculate);
 backSpaceButton.addEventListener("click", undoNumber);
 
-function add(num1, num2) {
-  return num1 + num2;
-}
-
-function subtract(num1, num2) {
-  return num1 - num2;
-}
-
-function multiply(num1, num2) {
-  return num1 * num2;
-}
-
-function divide(num1, num2) {
-  return num1 / num2;
-}
-
-function operate(operation, num1, num2) {
-  return operation(num1, num2);
-}
-
-function isRealNumber(num) {
-  return typeof num === "number";
-}
-
-function preventOverflow(num) {
-  if (
-    num.toString().length >= 6 &&
-    !Number.isInteger(num) &&
-    isRealNumber(num)
-  ) {
-    return parseFloat(num.toFixed(4));
-  } else {
-    return num;
-  }
-}
-
+// Main functions
 function displayNumber(e) {
   const numEntered = e.target.textContent;
   if (operator) {
@@ -74,42 +39,14 @@ function displayNumber(e) {
   }
 }
 
-function convertNumber(num, input) {
-  num += input;
-  checkForDecimal(num);
-  if (input === ".") {
-    num = num.replace("undefined", 0);
-  } else {
-    num = parseFloat(num.replace("undefined", ""));
-  }
-  mainCalcDisplay.textContent = num;
-  return num;
-}
-
-function checkForDecimal(num) {
-  if (num.toString().includes(".")) {
-    decimalBtn.disabled = true;
-  } else {
-    decimalBtn.disabled = false;
-  }
-}
-
-// Works
-const operators = {
-  "+": add,
-  "-": subtract,
-  x: multiply,
-  "÷": divide,
-};
-
 function operatorOfChoice(e) {
   if (
     e.target.type !== "submit" ||
-    (!isRealNumber(num1) && !isRealNumber(num2) && !isRealNumber(result))
+    (!isRealNumber(num1) && !isRealNumber(num2) && !isRealNumber(result)) // Prevents choosing an operator if no number was entered
   ) {
   } else if (
     (isRealNumber(num1) && isRealNumber(num2)) ||
-    (isRealNumber(result) && isRealNumber(num2))
+    (isRealNumber(result) && isRealNumber(num2)) // Allows chain calculations
   ) {
     calculate();
     operator = e.target.textContent;
@@ -135,33 +72,6 @@ function calculate() {
     operator = undefined;
     result = preventOverflow(result);
     mainCalcDisplay.textContent = result;
-  }
-}
-
-function continueCalculation() {
-  result = operate(operators[operator], result, num2);
-  // u00A0 adds space in template literal
-  const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
-  operationsDisplay.appendChild(prevCalc);
-}
-
-function startNewCalculation() {
-  result = operate(operators[operator], num1, num2);
-  operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
-  equalSign.textContent = "=";
-  operator = undefined;
-}
-
-function checkDivisionByZero() {
-  if (
-    (operator === "÷" && isRealNumber(num1) && num2 === 0) ||
-    (isRealNumber(result) && num2 === 0)
-  ) {
-    mainCalcDisplay.textContent = "OOPS";
-    num1 = undefined;
-    num2 = undefined;
-    result = undefined;
-    operator = undefined;
   }
 }
 
@@ -218,6 +128,85 @@ function undoNumber() {
   }
 }
 
+// Helper functions
+function add(num1, num2) {
+  return num1 + num2;
+}
+
+function subtract(num1, num2) {
+  return num1 - num2;
+}
+
+function multiply(num1, num2) {
+  return num1 * num2;
+}
+
+function divide(num1, num2) {
+  return num1 / num2;
+}
+
+function operate(operation, num1, num2) {
+  return operation(num1, num2);
+}
+
+const operators = {
+  "+": add,
+  "-": subtract,
+  x: multiply,
+  "÷": divide,
+};
+
+function isRealNumber(num) {
+  return typeof num === "number";
+}
+
+function checkForDecimal(num) {
+  if (num.toString().includes(".")) {
+    decimalBtn.disabled = true;
+  } else {
+    decimalBtn.disabled = false;
+  }
+}
+
+function convertNumber(num, input) {
+  num += input;
+  checkForDecimal(num);
+  if (input === ".") {
+    num = num.replace("undefined", 0);
+  } else {
+    num = parseFloat(num.replace("undefined", ""));
+  }
+  mainCalcDisplay.textContent = num;
+  return num;
+}
+
+function checkDivisionByZero() {
+  if (
+    (operator === "÷" && isRealNumber(num1) && num2 === 0) ||
+    (isRealNumber(result) && num2 === 0)
+  ) {
+    mainCalcDisplay.textContent = "OOPS";
+    num1 = undefined;
+    num2 = undefined;
+    result = undefined;
+    operator = undefined;
+  }
+}
+
+function continueCalculation() {
+  result = operate(operators[operator], result, num2);
+  // u00A0 adds space in template literal
+  const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
+  operationsDisplay.appendChild(prevCalc);
+}
+
+function startNewCalculation() {
+  result = operate(operators[operator], num1, num2);
+  operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
+  equalSign.textContent = "=";
+  operator = undefined;
+}
+
 function removeLastDigit(num) {
   num = num.toString().slice(0, -1);
   if (!num) {
@@ -231,13 +220,14 @@ function removeLastDigit(num) {
   return num;
 }
 
-// Doesn't work
-// function operatorOfChoice(e) {
-//   operator = e.target.id;
-//   console.log(operator);
-// }
-
-// function calculate() {
-//   let result = operate(operator, num1, num2);
-//   mainCalcDisplay.textContent = result;
-// }
+function preventOverflow(num) {
+  if (
+    num.toString().length >= 6 &&
+    !Number.isInteger(num) &&
+    isRealNumber(num)
+  ) {
+    return parseFloat(num.toFixed(4));
+  } else {
+    return num;
+  }
+}
