@@ -53,10 +53,8 @@ function displayNumber(e) {
   if (operator) {
     num2 = convertNumber(num2, numEntered);
   } else if (!operator) {
-    result = undefined;
+    result = undefined; // resets result of the previous calculation.
     num1 = convertNumber(num1, numEntered);
-  } else {
-    num2 = convertNumber(num2, numEntered);
   }
 }
 
@@ -92,8 +90,8 @@ function operatorOfChoice(e) {
   if (
     e.target.type !== "submit" ||
     (typeof num1 !== "number" &&
-      typeof num2 === "number" &&
-      typeof result === "number")
+      typeof num2 !== "number" &&
+      typeof result !== "number")
   ) {
   } else if (typeof num1 === "number" && typeof num2 === "number") {
   } else {
@@ -109,15 +107,9 @@ function calculate() {
     (typeof result === "number" && typeof num2 === "number")
   ) {
     if (typeof result === "number" && operator) {
-      result = operate(operators[operator], result, num2);
-      // u00A0 adds space in template literal
-      const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
-      operationsDisplay.appendChild(prevCalc);
+      continueCalculation();
     } else {
-      result = operate(operators[operator], num1, num2);
-      operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
-      equalSign.textContent = "=";
-      operator = undefined;
+      startNewCalculation();
     }
     num1 = undefined;
     num2 = undefined;
@@ -125,6 +117,20 @@ function calculate() {
     result = Math.round(result * 100) / 100;
     mainCalcDisplay.textContent = result;
   }
+}
+
+function continueCalculation() {
+  result = operate(operators[operator], result, num2);
+  // u00A0 adds space in template literal
+  const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
+  operationsDisplay.appendChild(prevCalc);
+}
+
+function startNewCalculation() {
+  result = operate(operators[operator], num1, num2);
+  operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
+  equalSign.textContent = "=";
+  operator = undefined;
 }
 
 function checkDivisionByZero() {
