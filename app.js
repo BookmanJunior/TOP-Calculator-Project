@@ -101,11 +101,11 @@ function plusMinus() {
 
 function displayPercentage() {
   if (num1 && !num2) {
-    getPercentage(num1);
+    num1 = getPercentage(num1);
   } else if (num2) {
-    getPercentage(num2);
+    num2 = getPercentage(num2);
   } else if (result) {
-    getPercentage(result);
+    result = getPercentage(result);
   }
 }
 
