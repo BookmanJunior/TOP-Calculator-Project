@@ -24,7 +24,7 @@ numberButtons.forEach((button) =>
 clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusButton.addEventListener("click", plusMinus);
-percentageButton.addEventListener("click", calculatePercentage);
+percentageButton.addEventListener("click", displayPercentage);
 equalButton.addEventListener("click", calculate);
 backSpaceButton.addEventListener("click", undoNumber);
 
@@ -99,22 +99,13 @@ function plusMinus() {
   }
 }
 
-function calculatePercentage() {
+function displayPercentage() {
   if (num1 && !num2) {
-    num1 = num1 / 100;
-    num1 = preventOverflow(num1);
-    checkForDecimal(num1);
-    mainCalcDisplay.textContent = num1;
+    getPercentage(num1);
   } else if (num2) {
-    num2 = num2 / 100;
-    checkForDecimal(num2);
-    num2 = preventOverflow(num2);
-    mainCalcDisplay.textContent = num2;
+    getPercentage(num2);
   } else if (result) {
-    result = result / 100;
-    result = preventOverflow(result);
-    checkForDecimal(result);
-    mainCalcDisplay.textContent = result;
+    getPercentage(result);
   }
 }
 
@@ -230,4 +221,12 @@ function preventOverflow(num) {
   } else {
     return num;
   }
+}
+
+function getPercentage(num) {
+  num = num / 100;
+  num = preventOverflow(num);
+  checkForDecimal(num);
+  mainCalcDisplay.textContent = num;
+  return num;
 }
