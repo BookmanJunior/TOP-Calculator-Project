@@ -28,10 +28,7 @@ plusMinusButton.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", displayPercentage);
 equalButton.addEventListener("click", calculate);
 backSpaceButton.addEventListener("click", undoNumber);
-secondaryDisplay.addEventListener("transitionend", (e) => {
-  if (e.propertyName !== "transform") return;
-  this.classList.remove("update-calculation-animation ");
-});
+secondaryDisplay.addEventListener("transitionend", removeAnimation);
 
 // Main functions
 function displayNumber(e) {
@@ -235,4 +232,9 @@ function getPercentage(num) {
   checkForDecimal(num);
   mainCalcDisplay.textContent = num;
   return num;
+}
+
+function removeAnimation(e) {
+  if (e.propertyName !== "transform") return;
+  this.classList.remove("update-calculation-animation");
 }
