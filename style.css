@@ -86,7 +86,7 @@ button {
   color: gray;
   font-size: 18px;
   margin-bottom: 15px;
-  transition: 0.1s ease-in-out;
+  transition: 0.1s ease-out;
 }
 
 .update-calculation-animation {
@@ -95,7 +95,7 @@ button {
 }
 
 .result-update-animation {
-  animation: slide-to-top 0.1s ease-in-out;
+  animation: slide-to-top 0.2s ease-out;
 }
 
 @keyframes slide-to-top {
