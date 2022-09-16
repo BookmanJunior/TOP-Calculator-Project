@@ -3,7 +3,8 @@ let num2;
 let result;
 let operator;
 
-const mainCalcDisplay = document.getElementById("calcResult");
+const mainCalcDisplay = document.getElementById("resultDisplay");
+const secondaryDisplay = document.querySelector(".current-calculation");
 const operationsDisplay = document.getElementById("currentCalcDisplay");
 const equalSign = document.getElementById("equalSign");
 const functionButtons = document.getElementById("functionButtons");
@@ -27,6 +28,10 @@ plusMinusButton.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", displayPercentage);
 equalButton.addEventListener("click", calculate);
 backSpaceButton.addEventListener("click", undoNumber);
+secondaryDisplay.addEventListener("transitionend", (e) => {
+  if (e.propertyName !== "transform") return;
+  this.classList.remove("update-calculation-animation ");
+});
 
 // Main functions
 function displayNumber(e) {
@@ -67,6 +72,7 @@ function calculate() {
     } else {
       startNewCalculation();
     }
+    secondaryDisplay.classList.add("update-calculation-animation");
     num1 = undefined;
     num2 = undefined;
     operator = undefined;
