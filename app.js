@@ -46,11 +46,11 @@ function getNumber(e) {
 function operatorOfChoice(e) {
   if (
     e.target.type !== "submit" ||
-    (!isRealNumber(num1) && !isRealNumber(num2) && !isRealNumber(result)) // Prevents choosing an operator if no number was entered
+    (!num1 && !num2 && !result) // Prevents choosing an operator if no number was entered
   ) {
   } else if (
-    (isRealNumber(num1) && isRealNumber(num2)) ||
-    (isRealNumber(result) && isRealNumber(num2)) // Allows chain calculations
+    (num1 && num2) ||
+    (result && num2) // Allows chain calculations
   ) {
     calculate();
     operator = e.target.textContent;
@@ -64,24 +64,20 @@ function operatorOfChoice(e) {
 
 function calculate() {
   checkDivisionByZero();
-  if (
-    (isRealNumber(num1) && isRealNumber(num2)) ||
-    (isRealNumber(result) && isRealNumber(num2))
-  ) {
-    if (isRealNumber(result) && operator) {
-      continueCalculation();
-    } else {
-      startNewCalculation();
-    }
-    secondaryDisplay.classList.add("update-calculation-animation");
-    mainCalcDisplay.classList.add("result-update-animation");
-    num1 = undefined;
-    num2 = undefined;
-    operator = undefined;
-    result = preventOverflow(result);
-    displayResult.textContent = result;
-    resetPreviousCalculationDisplay();
+  if ((!num1 && !num2) || (!num2 && !result)) return;
+  if (isRealNumber(result) && operator) {
+    continueCalculation();
+  } else {
+    startNewCalculation();
   }
+  secondaryDisplay.classList.add("update-calculation-animation");
+  mainCalcDisplay.classList.add("result-update-animation");
+  num1 = undefined;
+  num2 = undefined;
+  operator = undefined;
+  result = preventOverflow(result);
+  displayResult.textContent = result;
+  resetPreviousCalculationDisplay();
 }
 
 function clearInput() {
@@ -178,7 +174,7 @@ function convertNumber(num, input, displayNumber) {
   if (input === ".") {
     num = num.replace("undefined", 0);
   } else {
-    num = parseFloat(num.replace("undefined", ""));
+    num = num.replace("undefined", "");
   }
   displayNumber.textContent = num;
   return num;
@@ -198,14 +194,14 @@ function checkDivisionByZero() {
 }
 
 function continueCalculation() {
-  result = operate(operators[operator], result, num2);
+  result = operate(operators[operator], parseFloat(result), parseFloat(num2));
   // u00A0 adds space in template literal
   const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
   operationsDisplay.appendChild(prevCalc);
 }
 
 function startNewCalculation() {
-  result = operate(operators[operator], num1, num2);
+  result = operate(operators[operator], parseFloat(num1), parseFloat(num2));
   operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
   equalSign.textContent = "=";
   operator = undefined;
@@ -224,13 +220,13 @@ function removeLastInput(num, displayInput) {
     num = "";
   }
 
-  if (!num.toString().includes(".")) {
-    num = parseFloat(num);
-  }
+  // if (!num.toString().includes(".")) {
+  //   num = parseFloat(num);
+  // }
 
-  if (isNaN(num)) {
-    num = "";
-  }
+  // if (isNaN(num)) {
+  //   num = "";
+  // }
 
   checkForDecimal(num);
   displayInput.textContent = num;
