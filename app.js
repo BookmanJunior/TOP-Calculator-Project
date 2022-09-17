@@ -63,7 +63,6 @@ function operatorOfChoice(e) {
 }
 
 function calculate() {
-  checkDivisionByZero();
   if ((!num1 && !num2) || (!num2 && !result)) return;
   if (isRealNumber(result) && operator) {
     continueCalculation();
@@ -146,7 +145,16 @@ function divide(num1, num2) {
 }
 
 function operate(operation, num1, num2) {
-  return operation(parseFloat(num1), parseFloat(num2));
+  const floatNum1 = parseFloat(num1);
+  const floatNum2 = parseFloat(num2);
+  if (
+    (operator === "÷" && floatNum1 && floatNum2 === 0) ||
+    (result && floatNum2 === 0)
+  ) {
+    return (displayResult.textContent = "OOPS");
+  } else {
+    return operation(floatNum1, floatNum2);
+  }
 }
 
 const operators = {
@@ -178,16 +186,6 @@ function convertNumber(num, input, displayNumber) {
   }
   displayNumber.textContent = num;
   return num;
-}
-
-function checkDivisionByZero() {
-  if ((operator === "÷" && num1 && num2 === 0) || (result && num2 === 0)) {
-    displayResult.textContent = "OOPS";
-    num1 = undefined;
-    num2 = undefined;
-    result = undefined;
-    operator = undefined;
-  }
 }
 
 function continueCalculation() {
