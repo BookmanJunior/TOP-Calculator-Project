@@ -18,6 +18,10 @@ const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
 const backSpaceButton = document.getElementById("delete");
 const decimalBtn = document.getElementById("decimalButton");
+const displayNum1 = document.querySelector(".num1");
+const displayNum2 = document.querySelector(".num2");
+const displayOperatorSign = document.querySelector(".operator-sign");
+const displayResult = document.querySelector(".display-result");
 
 numberButtons.forEach((button) =>
   button.addEventListener("click", displayNumber)
@@ -36,9 +40,11 @@ function displayNumber(e) {
   const numEntered = e.target.textContent;
   if (operator) {
     num2 = convertNumber(num2, numEntered);
+    displayNum2.textContent = num2;
   } else if (!operator) {
     result = undefined; // resets result of the previous calculation.
     num1 = convertNumber(num1, numEntered);
+    displayNum1.textContent = num1;
   }
 }
 
@@ -53,8 +59,10 @@ function operatorOfChoice(e) {
   ) {
     calculate();
     operator = e.target.textContent;
+    displayOperatorSign.textContent = operator;
   } else {
     operator = e.target.textContent;
+    displayOperatorSign.textContent = operator;
   }
   calculate();
 }
@@ -76,7 +84,8 @@ function calculate() {
     num2 = undefined;
     operator = undefined;
     result = preventOverflow(result);
-    mainCalcDisplay.textContent = result;
+    displayResult.textContent = result;
+    resetPreviousCalculation();
   }
 }
 
@@ -85,32 +94,34 @@ function clearInput() {
   num2 = undefined;
   result = undefined;
   operator = undefined;
-  mainCalcDisplay.textContent = 0;
   operationsDisplay.textContent = 0;
   equalSign.textContent = "";
   decimalBtn.disabled = false;
+  resetPreviousCalculation();
+  displayNum1.textContent = 0;
+  displayResult.textContent = "";
 }
 
 function plusMinus() {
   if (num1 && !num2) {
     num1 = -num1;
-    mainCalcDisplay.textContent = num1;
+    displayNum1.textContent = num1;
   } else if (num2) {
     num2 = -num2;
-    mainCalcDisplay.textContent = num2;
+    displayNum2.textContent = num2;
   } else if (result) {
     result = -result;
-    mainCalcDisplay.textContent = result;
+    displayResult.textContent = result;
   }
 }
 
 function displayPercentage() {
   if (num1 && !num2) {
-    num1 = getPercentage(num1);
+    num1 = getPercentage(num1, displayNum1);
   } else if (num2) {
-    num2 = getPercentage(num2);
+    num2 = getPercentage(num2, displayNum2);
   } else if (result) {
-    result = getPercentage(result);
+    result = getPercentage(result, displayResult);
   }
 }
 
@@ -172,7 +183,6 @@ function convertNumber(num, input) {
   } else {
     num = parseFloat(num.replace("undefined", ""));
   }
-  mainCalcDisplay.textContent = num;
   return num;
 }
 
@@ -212,7 +222,6 @@ function removeLastDigit(num) {
     num = parseFloat(num);
   }
   checkForDecimal(num);
-  mainCalcDisplay.textContent = num;
   return num;
 }
 
@@ -228,11 +237,11 @@ function preventOverflow(num) {
   }
 }
 
-function getPercentage(num) {
+function getPercentage(num, display) {
   num = num / 100;
   num = preventOverflow(num);
   checkForDecimal(num);
-  mainCalcDisplay.textContent = num;
+  display.textContent = num;
   return num;
 }
 
@@ -244,4 +253,10 @@ function removeTransform(e) {
 function removeAnimation(AnimationEvent) {
   if (AnimationEvent.animationName !== "slide-to-top") return;
   this.classList.remove("result-update-animation");
+}
+
+function resetPreviousCalculation() {
+  displayNum1.textContent = "";
+  displayNum2.textContent = "";
+  displayOperatorSign.textContent = "";
 }
