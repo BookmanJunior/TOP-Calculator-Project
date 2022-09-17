@@ -146,7 +146,7 @@ function divide(num1, num2) {
 }
 
 function operate(operation, num1, num2) {
-  return operation(num1, num2);
+  return operation(parseFloat(num1), parseFloat(num2));
 }
 
 const operators = {
@@ -194,43 +194,34 @@ function checkDivisionByZero() {
 }
 
 function continueCalculation() {
-  result = operate(operators[operator], parseFloat(result), parseFloat(num2));
+  result = operate(operators[operator], result, num2);
   // u00A0 adds space in template literal
   const prevCalc = document.createTextNode(`\u00A0${operator} ${num2}`);
   operationsDisplay.appendChild(prevCalc);
 }
 
 function startNewCalculation() {
-  result = operate(operators[operator], parseFloat(num1), parseFloat(num2));
+  result = operate(operators[operator], num1, num2);
   operationsDisplay.textContent = `${num1} ${operator} ${num2}`;
   equalSign.textContent = "=";
   operator = undefined;
 }
 
-function removeLastInput(num, displayInput) {
-  num = num.toString().slice(0, -1);
-  if (!num) {
-    num = 0;
+function removeLastInput(input, displayInput) {
+  input = input.toString().slice(0, -1);
+  if (!input) {
+    input = "";
   }
-
+  checkForDecimal(input);
   if (
-    (!num && displayInput.classList.contains("num2")) ||
-    (!num && displayInput.classList.contains("operator-sign"))
+    (!input && displayInput.classList.contains("num1")) ||
+    (!input && displayInput.classList.contains("display-result"))
   ) {
-    num = "";
+    displayInput.textContent = 0;
+  } else {
+    displayInput.textContent = input;
   }
-
-  // if (!num.toString().includes(".")) {
-  //   num = parseFloat(num);
-  // }
-
-  // if (isNaN(num)) {
-  //   num = "";
-  // }
-
-  checkForDecimal(num);
-  displayInput.textContent = num;
-  return num;
+  return input;
 }
 
 function preventOverflow(num) {
