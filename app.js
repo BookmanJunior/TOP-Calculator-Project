@@ -22,7 +22,7 @@ const displayOperatorSign = document.querySelector(".operator-sign");
 const displayResult = document.querySelector(".display-result");
 
 operandButtons.forEach((button) => button.addEventListener("click", getNumber));
-clearButton.addEventListener("click", clearInput);
+clearButton.addEventListener("click", reset);
 operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusButton.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", displayPercentage);
@@ -46,7 +46,7 @@ function getNumber(e) {
 function operatorOfChoice(e) {
   if (
     e.target.type !== "submit" ||
-    (!num1 && !num2 && !result) // Prevents choosing an operator if no number was entered
+    (!num1 && !num2 && !isRealNumber(result)) // Prevents choosing an operator if no number was entered
   ) {
   } else if (
     (num1 && num2) ||
@@ -80,7 +80,7 @@ function calculate() {
   resetPreviousCalculationDisplay();
 }
 
-function clearInput() {
+function reset() {
   num1 = undefined;
   num2 = undefined;
   result = undefined;
@@ -181,11 +181,8 @@ function convertNumber(num, input, displayNumber) {
 }
 
 function checkDivisionByZero() {
-  if (
-    (operator === "÷" && isRealNumber(num1) && num2 === 0) ||
-    (isRealNumber(result) && num2 === 0)
-  ) {
-    mainCalcDisplay.textContent = "OOPS";
+  if ((operator === "÷" && num1 && num2 === 0) || (result && num2 === 0)) {
+    displayResult.textContent = "OOPS";
     num1 = undefined;
     num2 = undefined;
     result = undefined;
