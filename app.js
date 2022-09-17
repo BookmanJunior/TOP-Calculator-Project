@@ -3,8 +3,8 @@ let num2;
 let result;
 let operator;
 
-const mainCalcDisplay = document.getElementById("resultDisplay");
-const secondaryDisplay = document.querySelector(".current-calculation");
+const mainCalcDisplay = document.getElementById("mainDisplay");
+const secondaryDisplay = document.getElementById("secondaryDisplay");
 const operationsDisplay = document.getElementById("currentCalcDisplay");
 const equalSign = document.getElementById("equalSign");
 const functionButtons = document.getElementById("functionButtons");

@@ -77,12 +77,12 @@ button {
   text-align: right;
 }
 
-.result {
+.main-display {
   font-size: 44px;
   margin-bottom: 40px;
 }
 
-.current-calculation {
+.secondary-display {
   color: gray;
   font-size: 18px;
   margin-bottom: 15px;
