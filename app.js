@@ -11,9 +11,7 @@ const functionButtons = document.getElementById("functionButtons");
 const clearButton = document.getElementById("clear");
 const percentageButton = document.getElementById("percentageButton");
 const plusMinusButton = document.getElementById("plusMinusToggle");
-const numberButtons = Array.from(
-  document.getElementsByClassName("operand-button")
-);
+const operandButtons = document.querySelectorAll(".operand-button");
 const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
 const backSpaceButton = document.getElementById("delete");
@@ -23,7 +21,7 @@ const displayNum2 = document.querySelector(".num2");
 const displayOperatorSign = document.querySelector(".operator-sign");
 const displayResult = document.querySelector(".display-result");
 
-numberButtons.forEach((button) => button.addEventListener("click", getNumber));
+operandButtons.forEach((button) => button.addEventListener("click", getNumber));
 clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusButton.addEventListener("click", plusMinus);
@@ -40,6 +38,7 @@ function getNumber(e) {
     num2 = convertNumber(num2, numEntered, displayNum2);
   } else if (!operator) {
     result = undefined; // resets result of the previous calculation.
+    displayResult.textContent = "";
     num1 = convertNumber(num1, numEntered, displayNum1);
   }
 }
@@ -81,7 +80,7 @@ function calculate() {
     operator = undefined;
     result = preventOverflow(result);
     displayResult.textContent = result;
-    resetPreviousCalculation();
+    resetPreviousCalculationDisplay();
   }
 }
 
@@ -93,7 +92,7 @@ function clearInput() {
   operationsDisplay.textContent = 0;
   equalSign.textContent = "";
   decimalBtn.disabled = false;
-  resetPreviousCalculation();
+  resetPreviousCalculationDisplay();
   displayNum1.textContent = 0;
   displayResult.textContent = "";
 }
@@ -252,7 +251,7 @@ function removeAnimation(AnimationEvent) {
   this.classList.remove("result-update-animation");
 }
 
-function resetPreviousCalculation() {
+function resetPreviousCalculationDisplay() {
   displayNum1.textContent = "";
   displayNum2.textContent = "";
   displayOperatorSign.textContent = "";
