@@ -23,9 +23,7 @@ const displayNum2 = document.querySelector(".num2");
 const displayOperatorSign = document.querySelector(".operator-sign");
 const displayResult = document.querySelector(".display-result");
 
-numberButtons.forEach((button) =>
-  button.addEventListener("click", displayNumber)
-);
+numberButtons.forEach((button) => button.addEventListener("click", getNumber));
 clearButton.addEventListener("click", clearInput);
 operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusButton.addEventListener("click", plusMinus);
@@ -36,15 +34,13 @@ secondaryDisplay.addEventListener("transitionend", removeTransform);
 mainCalcDisplay.addEventListener("animationend", removeAnimation);
 
 // Main functions
-function displayNumber(e) {
+function getNumber(e) {
   const numEntered = e.target.textContent;
   if (operator) {
-    num2 = convertNumber(num2, numEntered);
-    displayNum2.textContent = num2;
+    num2 = convertNumber(num2, numEntered, displayNum2);
   } else if (!operator) {
     result = undefined; // resets result of the previous calculation.
-    num1 = convertNumber(num1, numEntered);
-    displayNum1.textContent = num1;
+    num1 = convertNumber(num1, numEntered, displayNum1);
   }
 }
 
@@ -175,7 +171,7 @@ function checkForDecimal(num) {
   }
 }
 
-function convertNumber(num, input) {
+function convertNumber(num, input, displayNumber) {
   num += input;
   checkForDecimal(num);
   if (input === ".") {
@@ -183,6 +179,7 @@ function convertNumber(num, input) {
   } else {
     num = parseFloat(num.replace("undefined", ""));
   }
+  displayNumber.textContent = num;
   return num;
 }
 
@@ -237,11 +234,11 @@ function preventOverflow(num) {
   }
 }
 
-function getPercentage(num, display) {
+function getPercentage(num, displayNumber) {
   num = num / 100;
   num = preventOverflow(num);
   checkForDecimal(num);
-  display.textContent = num;
+  displayNumber.textContent = num;
   return num;
 }
 
