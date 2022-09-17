@@ -53,12 +53,15 @@ function operatorOfChoice(e) {
     (result && num2) // Allows chain calculations
   ) {
     calculate();
-    operator = e.target.textContent;
-    displayOperatorSign.textContent = operator;
+    if (displayResult.textContent !== "OOPS") {
+      operator = e.target.textContent;
+      displayOperatorSign.textContent = operator;
+    }
   } else {
     operator = e.target.textContent;
     displayOperatorSign.textContent = operator;
   }
+  decimalBtn.disabled = false;
   calculate();
 }
 
