@@ -121,12 +121,14 @@ function displayPercentage() {
 }
 
 function undoNumber() {
-  if (num1 && !num2) {
-    num1 = removeLastDigit(num1);
+  if (num1 && !num2 && !operator) {
+    num1 = removeLastInput(num1, displayNum1);
   } else if (num2) {
-    num2 = removeLastDigit(num2);
+    num2 = removeLastInput(num2, displayNum2);
+  } else if (operator) {
+    operator = removeLastInput(operator, displayOperatorSign);
   } else if (result) {
-    result = removeLastDigit(result);
+    result = removeLastInput(result, displayResult);
   }
 }
 
@@ -209,15 +211,29 @@ function startNewCalculation() {
   operator = undefined;
 }
 
-function removeLastDigit(num) {
+function removeLastInput(num, displayInput) {
   num = num.toString().slice(0, -1);
   if (!num) {
     num = 0;
   }
+
+  if (
+    (!num && displayInput.classList.contains("num2")) ||
+    (!num && displayInput.classList.contains("operator-sign"))
+  ) {
+    num = "";
+  }
+
   if (!num.toString().includes(".")) {
     num = parseFloat(num);
   }
+
+  if (isNaN(num)) {
+    num = "";
+  }
+
   checkForDecimal(num);
+  displayInput.textContent = num;
   return num;
 }
 
