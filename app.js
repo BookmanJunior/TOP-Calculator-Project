@@ -44,49 +44,46 @@ function getNumber(e) {
 }
 
 function operatorOfChoice(e) {
-  if (
-    e.target.type !== "submit" ||
-    (!num1 && !num2 && !isRealNumber(result)) // Prevents choosing an operator if no number was entered
-  ) {
-  } else if (
-    (num1 && num2) ||
-    (result && num2) // Allows chain calculations
-  ) {
+  if (e.target.type !== "submit" || (!num1 && !num2 && !isRealNumber(result))) {
+    return; // Prevents choosing an operator if no number was entered
+  }
+
+  if ((num1 && num2) || (result && num2)) {
+    // Allows chain calculations
     calculate();
     if (displayResult.textContent !== "OOPS") {
       operator = e.target.textContent;
       displayOperatorSign.textContent = operator;
+      return;
     }
-  } else {
-    operator = e.target.textContent;
-    displayOperatorSign.textContent = operator;
   }
+
+  operator = e.target.textContent;
+  displayOperatorSign.textContent = operator;
   decimalBtn.disabled = false;
   calculate();
 }
 
 function calculate() {
-  if ((!num1 && !num2) || (!num2 && !result)) return;
-  if (isRealNumber(result) && operator) {
+  if ((!num1 && !num2) || (!num2 && !result)) return; // Prevents calculation if no there's no input;
+
+  if (isRealNumber(result)) {
     continueCalculation();
   } else {
     startNewCalculation();
   }
+
+  decimalBtn.disabled = false;
   secondaryDisplay.classList.add("update-calculation-animation");
   mainCalcDisplay.classList.add("result-update-animation");
-  num1 = undefined;
-  num2 = undefined;
-  operator = undefined;
+  num1 = num2 = operator = undefined;
   result = preventOverflow(result);
   displayResult.textContent = result;
   resetPreviousCalculationDisplay();
 }
 
 function reset() {
-  num1 = undefined;
-  num2 = undefined;
-  result = undefined;
-  operator = undefined;
+  num1 = num2 = result = operator = undefined;
   operationsDisplay.textContent = 0;
   equalSign.textContent = "";
   decimalBtn.disabled = false;
