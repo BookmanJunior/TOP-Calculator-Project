@@ -50,11 +50,11 @@ body {
   color: rgb(74, 188, 118);
 }
 
-.function-buttons button:nth-of-type(1):hover {
+.clear-btn:hover {
   background-color: rgb(239, 217, 221);
   border: 1px solid darkred;
   color: rgb(191, 65, 76);
-  transition: 0.4s ease-in-out;
+  transition: 200ms ease-in-out;
 }
 
 #equalButton {
@@ -93,12 +93,12 @@ button {
   transition: 0.1s ease-out;
 }
 
-.update-calculation-animation {
+.secondaryAnimation {
   transform: scale(1.2) translateX(-7%) translateY(50%);
   color: black;
 }
 
-.result-update-animation {
+.mainAnimation {
   animation: slide-to-top 0.2s ease-out;
 }
 

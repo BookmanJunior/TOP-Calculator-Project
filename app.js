@@ -48,24 +48,14 @@ function operatorOfChoice(e) {
     return; // Prevents choosing an operator if no number was entered
   }
 
-  if ((num1 && num2) || (result && num2)) {
-    // Allows chain calculations
-    calculate();
-    if (displayResult.textContent !== "OOPS") {
-      operator = e.target.textContent;
-      displayOperatorSign.textContent = operator;
-      return;
-    }
-  }
-
+  calculate();
   operator = e.target.textContent;
   displayOperatorSign.textContent = operator;
   decimalBtn.disabled = false;
-  calculate();
 }
 
 function calculate() {
-  if ((!num1 && !num2) || (!num2 && !result)) return; // Prevents calculation if no there's no input;
+  if ((!num1 && !num2 && !operator) || (!num2 && !result)) return; // Prevents calculation if no there's no input;
 
   if (isRealNumber(result)) {
     continueCalculation();
@@ -74,8 +64,8 @@ function calculate() {
   }
 
   decimalBtn.disabled = false;
-  secondaryDisplay.classList.add("update-calculation-animation");
-  mainCalcDisplay.classList.add("result-update-animation");
+  secondaryDisplay.classList.add("secondaryAnimation");
+  mainCalcDisplay.classList.add("mainAnimation");
   num1 = num2 = operator = undefined;
   result = preventOverflow(result);
   displayResult.textContent = result;
@@ -207,7 +197,7 @@ function removeLastInput(input, displayInput) {
   if (!input) {
     input = "";
   }
-  checkForDecimal(input);
+
   if (
     (!input && displayInput.classList.contains("num1")) ||
     (!input && displayInput.classList.contains("display-result"))
@@ -216,6 +206,8 @@ function removeLastInput(input, displayInput) {
   } else {
     displayInput.textContent = input;
   }
+
+  checkForDecimal(input);
   return input;
 }
 
@@ -239,18 +231,19 @@ function getPercentage(num, displayNumber) {
   return num;
 }
 
-function removeTransform(e) {
-  if (e.propertyName !== "transform") return;
-  this.classList.remove("update-calculation-animation");
-}
-
-function removeAnimation(AnimationEvent) {
-  if (AnimationEvent.animationName !== "slide-to-top") return;
-  this.classList.remove("result-update-animation");
-}
-
 function resetPreviousCalculationDisplay() {
   displayNum1.textContent = "";
   displayNum2.textContent = "";
   displayOperatorSign.textContent = "";
+}
+
+// Animation
+function removeTransform(e) {
+  if (e.propertyName !== "transform") return;
+  this.classList.remove("secondaryAnimation");
+}
+
+function removeAnimation(AnimationEvent) {
+  if (AnimationEvent.animationName !== "slide-to-top") return;
+  this.classList.remove("mainAnimation");
 }
