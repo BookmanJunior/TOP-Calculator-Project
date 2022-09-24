@@ -14,7 +14,7 @@ const plusMinusButton = document.getElementById("plusMinusToggle");
 const operandButtons = document.querySelectorAll(".operand-button");
 const operatorButtons = document.getElementById("operatorButtons");
 const equalButton = document.getElementById("equalButton");
-const backSpaceButton = document.getElementById("delete");
+const backSpaceButton = document.getElementById("backspaceBtn");
 const decimalBtn = document.getElementById("decimalButton");
 const displayNum1 = document.querySelector(".num1");
 const displayNum2 = document.querySelector(".num2");
@@ -22,7 +22,7 @@ const displayOperatorSign = document.querySelector(".operator-sign");
 const displayResult = document.querySelector(".display-result");
 
 operandButtons.forEach((button) => button.addEventListener("click", getNumber));
-clearButton.addEventListener("click", reset);
+clearButton.addEventListener("click", clear);
 operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusButton.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", displayPercentage);
