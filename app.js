@@ -55,7 +55,7 @@ function operatorOfChoice(e) {
 }
 
 function calculate() {
-  if ((!num1 && !num2 && !operator) || (!num2 && !result)) return; // Prevents calculation if no there's no input;
+  if ((!num1 && !num2) || (!num2 && !result)) return; // Prevents calculation if no there's no input;
 
   if (isRealNumber(result)) {
     continueCalculation();
@@ -63,12 +63,12 @@ function calculate() {
     startNewCalculation();
   }
 
+  result = preventOverflow(result);
+  displayResult.textContent = result;
   decimalBtn.disabled = false;
   secondaryDisplay.classList.add("secondaryAnimation");
   mainCalcDisplay.classList.add("mainAnimation");
   num1 = num2 = operator = undefined;
-  result = preventOverflow(result);
-  displayResult.textContent = result;
   resetPreviousCalculationDisplay();
 }
 
