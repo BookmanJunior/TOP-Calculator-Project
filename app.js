@@ -55,7 +55,7 @@ function operatorOfChoice(e) {
 }
 
 function calculate() {
-  if ((!num1 && !num2) || (!num2 && !result)) return; // Prevents calculation if no there's no input;
+  if ((!num1 && !num2) || (!num2 && !result)) return; // Prevents calculation if there's no valid input;
 
   if (isRealNumber(result)) {
     continueCalculation();
@@ -72,7 +72,7 @@ function calculate() {
   resetPreviousCalculationDisplay();
 }
 
-function reset() {
+function clear() {
   num1 = num2 = result = operator = undefined;
   operationsDisplay.textContent = 0;
   equalSign.textContent = "";
