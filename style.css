@@ -70,6 +70,11 @@ button {
   border-radius: 15px;
   border: none;
   cursor: pointer;
+  transition: all 200ms ease;
+}
+
+button:hover {
+  filter: brightness(90%);
 }
 
 .calculator-display {
@@ -78,7 +83,7 @@ button {
 }
 
 .main-display {
-  font-size: 44px;
+  font-size: 40px;
   margin-bottom: 40px;
   max-height: 50px;
   overflow: auto;
