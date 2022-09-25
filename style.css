@@ -82,13 +82,12 @@ button:active {
 }
 
 .calculator-display {
-  min-height: 97px;
   text-align: right;
 }
 
 .main-display {
   font-size: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
   max-height: 50px;
   overflow: auto;
 }
@@ -97,7 +96,6 @@ button:active {
   color: gray;
   font-size: 18px;
   margin-bottom: 15px;
-  max-height: 20px;
   overflow: auto;
   transition: 0.1s ease-out;
 }
