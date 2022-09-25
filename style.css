@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
 *,
 *::after,
 *::before {
@@ -8,6 +10,7 @@
 
 body {
   display: flex;
+  font-family: "Open Sans", sans-serif;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -94,6 +97,7 @@ button:active {
 
 .secondary-display {
   color: gray;
+  max-height: 25px;
   font-size: 18px;
   margin-bottom: 15px;
   overflow: auto;
