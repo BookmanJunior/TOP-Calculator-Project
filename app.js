@@ -25,7 +25,7 @@ plusMinusButton.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", displayPercentage);
 equalButton.addEventListener("click", calculate);
 backSpaceButton.addEventListener("click", undoNumber);
-secondaryDisplay.addEventListener("transitionend", removeTransform);
+secondaryDisplay.addEventListener("transitionend", removeTransition);
 mainCalcDisplay.addEventListener("animationend", removeAnimation);
 
 // Main functions
@@ -235,7 +235,7 @@ function resetPreviousCalculationDisplay() {
 }
 
 // Animation
-function removeTransform(e) {
+function removeTransition(e) {
   if (e.propertyName !== "transform") return;
   this.classList.remove("secondaryAnimation");
 }
