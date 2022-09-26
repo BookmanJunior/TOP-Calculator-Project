@@ -51,7 +51,7 @@ function getNumber(e) {
     });
   }
 
-  if (!numEntered) return;
+  if (!numEntered) return; // prevents convertNumber from crashing.
 
   if (operator) {
     num2 = convertNumber(num2, numEntered, displayNum2);
@@ -65,19 +65,17 @@ function getNumber(e) {
 function operatorOfChoice(e) {
   if (!num1 && !num2 && !isRealNumber(result)) return; // Prevents choosing an operator if no number was entered
 
-  calculate();
-
-  if (e.type === "keydown") {
-    operatorButtons.forEach((button) => {
-      if (e.key === button.textContent) {
-        operator = e.key;
-      }
-    });
-  }
-
   if (e.type === "click") {
+    calculate();
     operator = e.target.textContent;
   }
+
+  operatorButtons.forEach((button) => {
+    if (e.key === button.textContent) {
+      calculate();
+      operator = e.key;
+    }
+  });
 
   displayOperatorSign.textContent = operator;
   decimalBtn.disabled = false;
