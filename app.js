@@ -12,7 +12,7 @@ const clearButton = document.getElementById("clear");
 const percentageButton = document.getElementById("percentageButton");
 const plusMinusButton = document.getElementById("plusMinusToggle");
 const operandButtons = document.querySelectorAll(".operand-button");
-const operatorButtons = document.getElementById("operatorButtons");
+const operatorButtons = document.querySelectorAll(".operator-button");
 const equalButton = document.getElementById("equalButton");
 const backSpaceButton = document.getElementById("backspaceBtn");
 const decimalBtn = document.getElementById("decimalButton");
@@ -22,18 +22,37 @@ const displayOperatorSign = document.querySelector(".operator-sign");
 const displayResult = document.querySelector(".display-result");
 
 operandButtons.forEach((button) => button.addEventListener("click", getNumber));
+operatorButtons.forEach((button) =>
+  button.addEventListener("click", operatorOfChoice)
+);
 clearButton.addEventListener("click", clear);
-operatorButtons.addEventListener("click", operatorOfChoice);
 plusMinusButton.addEventListener("click", plusMinus);
 percentageButton.addEventListener("click", displayPercentage);
 equalButton.addEventListener("click", calculate);
 backSpaceButton.addEventListener("click", undoNumber);
 secondaryDisplay.addEventListener("transitionend", removeTransform);
 mainCalcDisplay.addEventListener("animationend", removeAnimation);
+window.addEventListener("keydown", getNumber);
+window.addEventListener("keydown", operatorOfChoice);
 
 // Main functions
 function getNumber(e) {
-  const numEntered = e.target.textContent;
+  let numEntered;
+
+  if (e.type === "click") {
+    numEntered = e.target.textContent;
+  }
+
+  if (e.type === "keydown") {
+    operandButtons.forEach((button) => {
+      if (e.key === button.textContent) {
+        numEntered = e.key;
+      }
+    });
+  }
+
+  if (!numEntered) return;
+
   if (operator) {
     num2 = convertNumber(num2, numEntered, displayNum2);
   } else if (!operator) {
@@ -44,12 +63,22 @@ function getNumber(e) {
 }
 
 function operatorOfChoice(e) {
-  if (e.target.type !== "submit" || (!num1 && !num2 && !isRealNumber(result))) {
-    return; // Prevents choosing an operator if no number was entered
-  }
+  if (!num1 && !num2 && !isRealNumber(result)) return; // Prevents choosing an operator if no number was entered
 
   calculate();
-  operator = e.target.textContent;
+
+  if (e.type === "keydown") {
+    operatorButtons.forEach((button) => {
+      if (e.key === button.textContent) {
+        operator = e.key;
+      }
+    });
+  }
+
+  if (e.type === "click") {
+    operator = e.target.textContent;
+  }
+
   displayOperatorSign.textContent = operator;
   decimalBtn.disabled = false;
 }
