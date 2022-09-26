@@ -1,7 +1,4 @@
-let num1;
-let num2;
-let result;
-let operator;
+let { num1, num2, result, operator } = "";
 
 const mainCalcDisplay = document.getElementById("mainDisplay");
 const secondaryDisplay = document.getElementById("secondaryDisplay");
